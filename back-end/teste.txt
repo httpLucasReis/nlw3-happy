@@ -1,0 +1,9 @@
+{
+	"name": "Casa da família",
+    "latitude": -2.5753921,
+    "longitude": "-44.2544812",
+    "about": "Sobre o orfanato",
+    "instructions": "Venha visitar",
+    "opening_hours": "Das 8h até 18h",
+    "open_on_weekends": true
+}
