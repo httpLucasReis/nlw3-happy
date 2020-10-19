@@ -3,7 +3,7 @@ import { Map, Marker, TileLayer, } from 'react-leaflet';
 import {LeafletMouseEvent} from 'leaflet';
 import { useHistory } from 'react-router-dom';
 
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 import mapMarkerImg from '../images/map-mark.svg';
 import '../styles/pages/create-orphanage.css';
 
@@ -79,11 +79,30 @@ export default function CreateOrphanage() {
 
     setImages(selectedImages);
 
+    console.log(selectedImages);
+
     const selectedImagesPreview = selectedImages.map((image)=>{
       return URL.createObjectURL(image)
     })
 
     setPreviewImages(selectedImagesPreview);
+  }
+
+   function handleDeleteSelectedImage(imageIndex: number){
+    
+    // Excluir a imagem do array de arquivos
+
+    const filteredImages = images.filter((image, index)=>{
+      return index != imageIndex;
+    })
+
+    setImages(filteredImages);
+
+    const filteredPreviewImages = previewImages.filter((image, index)=>{
+      return index != imageIndex;
+    })
+
+    setPreviewImages(filteredPreviewImages); 
   }
 
   return (
@@ -142,9 +161,12 @@ export default function CreateOrphanage() {
               <label htmlFor="images">Fotos</label>
               
               <div className="images-container">
-                {previewImages.map((image)=>{
+                {previewImages.map((image, index)=>{
                     return (
-                      <img key ={image} src={image} alt="name" />
+                      <div className="image-uploaded">
+                        <img key={image} src={image} alt="name" />
+                        <button onClick={() => handleDeleteSelectedImage(index)}> <FiX size={18} color="#FF669D"/> </button>
+                      </div>
                     )
                 })}  
 

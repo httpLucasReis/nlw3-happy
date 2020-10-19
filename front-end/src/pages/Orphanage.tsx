@@ -36,10 +36,18 @@ interface OrphanageParams {
   id: string;
 }
 
+
 export default function Orphanage() {
   const params = useParams<OrphanageParams>() // Pegando os parâmetros passados pela rota.
   const [orphanage, setOrphanage] = useState<Orphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  // Função que verifica se alguma image foi upada.
+  function verifyImageUploaded(orphanage: Orphanage){
+      if(orphanage.images.length){
+        return <img src={orphanage.images[activeImageIndex].url} alt={orphanage.name} /> 
+      }
+  } 
 
 
   useEffect(()=> {
@@ -60,8 +68,13 @@ export default function Orphanage() {
 
       <main>
         <div className="orphanage-details">
-          <img src={orphanage.images[activeImageIndex].url} alt={orphanage.name} />
 
+          {verifyImageUploaded(orphanage)}
+
+          {
+            console.log(orphanage.images.length)
+          }
+    
           <div className="images">
             {orphanage.images.map((image, index) => {
               return(
